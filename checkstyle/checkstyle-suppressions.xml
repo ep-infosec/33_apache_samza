@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<!--
+     // Licensed to the Apache Software Foundation (ASF) under one or more
+     // contributor license agreements.  See the NOTICE file distributed with
+     // this work for additional information regarding copyright ownership.
+     // The ASF licenses this file to You under the Apache License, Version 2.0
+     // (the "License"); you may not use this file except in compliance with
+     // the License.  You may obtain a copy of the License at
+     //
+     //    http://www.apache.org/licenses/LICENSE-2.0
+     //
+     // Unless required by applicable law or agreed to in writing, software
+     // distributed under the License is distributed on an "AS IS" BASIS,
+     // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     // See the License for the specific language governing permissions and
+     // limitations under the License.
+-->
+
+<suppressions>
+  <suppress checks="ConstantName"
+            files="ApplicationStatus.java"
+            lines="26-29"/>
+  <!--
+    API javadocs (including descriptors) may reference classes (using '{@link <className>}') which
+    aren't directly used in the API class. In order to help the API javadoc look cleaner, we can use
+    the simple class name in the javadoc and then import that class. However, for non-API code, we
+    want checkstyle prevent an import just for documentation purposes. The
+    "preventJavadocUnusedImports" id includes processing of javadocs when checking unused imports.
+    We will apply that to the API classes only.
+  -->
+  <suppress id="preventJavadocUnusedImports"
+            files=".*samza-api.*"/>
+  <suppress id="preventJavadocUnusedImports"
+            files="samza-kafka/src/main/java/org/apache/samza/system/kafka/descriptors" />
+
+  <!-- suppress avro schema classes since they are based on auto-generated code -->
+  <suppress files="samza-sql/src/test/java/org/apache/samza/sql/avro/schemas" checks=".*" />
+  <suppress files="samza-tools/src/main/java/org/apache/samza/tools/schemas" checks=".*" />
+</suppressions>
+
